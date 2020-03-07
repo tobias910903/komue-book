@@ -1,4 +1,4 @@
-# komue-note
+# komue-book
 
 > 一个自己用来做笔记的玩意儿
 

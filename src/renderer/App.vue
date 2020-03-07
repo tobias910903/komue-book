@@ -53,12 +53,12 @@
 
 <script>
     const fs = require('fs');
-    let aa = fs.readFileSync('/git/komue-note/readme.md','utf-8');
+    let aa = fs.readFileSync('/git/komue-book/readme.md','utf-8');
     console.log("Nodejs获取本地文件...");
     console.log(aa);
     
     export default {
-        name: 'komue-note',
+        name: 'komue-book',
         data() {
             return {
                 input1: '',
