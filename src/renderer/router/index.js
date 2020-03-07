@@ -9,9 +9,6 @@ export default new Router({
             path: '/',
             name: 'index',
             component: require('@/components/index').default
-        }, {
-            path: '*',
-            redirect: '/'
-        }
+        },
     ]
 })
