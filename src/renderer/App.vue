@@ -19,19 +19,8 @@
             
             <el-container>
                 <el-main>
-                    <el-input
-                            v-model="bookContent"
-                            type="textarea"
-                            @keyup.native.ctrl.83="saveContent"
-                            placeholder="请输入内容"
-                            v-if="!!bookName && !createCard">
-                    </el-input>
-                    <el-input
-                            readonly
-                            type="textarea"
-                            placeholder="保存：Ctrl+S"
-                            v-else>
-                    </el-input>
+                    <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent"></wang-editor>
+                    <el-input readonly type="textarea" placeholder="保存：Ctrl+S" v-else></el-input>
                 </el-main>
                 <el-footer v-if="!!bookName && !createCard">
                     <el-button type="primary" size="small" @click="saveContent">保存</el-button>
@@ -66,6 +55,7 @@
 
 <script>
     import Vue from 'vue';
+    import WangEditor from '@/components/wangEditor'
 
     const fs = require('fs');
 
@@ -80,7 +70,11 @@
                 bookContent: "", // 文件内容
                 fileSelect: "", // 当前选择的文件
                 dataObj: {}, // 所有的数据
+                isEditorClear: false,
             }
+        },
+        components: {
+            WangEditor
         },
         methods: {
             readFileSync(fileName) { // 获取文件内容
@@ -173,7 +167,10 @@
             createCardClose(){
                 this.bookName = "";
                 this.bookContent = "";
-            }
+            },
+            editorChange(val) {
+                console.log(val)
+            },
         },
         mounted() {
             // 创建数据文件夹
