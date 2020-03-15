@@ -20,7 +20,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 600,
     useContentSize: true,
-    width: 1200
+    width: 1280
   })
 
   mainWindow.loadURL(winURL)

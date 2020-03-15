@@ -3,7 +3,8 @@
         <el-container>
             <el-aside>
                 <div class="btn-group">
-                    <el-button type="success" size="small" icon="el-icon-edit" @click="createBook">添加</el-button>
+                    <el-button type="success" size="small" @click="createBook">新增</el-button>
+                    <el-button type="text" size="small" @click="bookName = ''">使用说明</el-button>
                     <!--
                     <el-button type="primary" size="small" icon="el-icon-upload2">导入</el-button>
                     <el-button type="primary" size="small" icon="el-icon-download">导出</el-button>
@@ -11,7 +12,7 @@
                 </div>
                 
                 <div class="card-box">
-                    <el-card shadow="hover" v-for="(i, index) in bookList" :key="index" @click.native="readFileSync(i)">
+                    <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFileSync(i, index)" :class="index == activeIndex && 'active'">
                         {{dataObj[i]}}
                     </el-card>
                 </div>
@@ -20,7 +21,10 @@
             <el-container>
                 <el-main>
                     <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent"></wang-editor>
-                    <el-input readonly type="textarea" placeholder="保存：Ctrl+S" v-else></el-input>
+                    <div class="about-info" v-else>
+                        <h2>Komue-book 使用说明</h2>
+                        <p>保存：Ctrl+S</p>
+                    </div>
                 </el-main>
                 <el-footer v-if="!!bookName && !createCard">
                     <el-button type="primary" size="small" @click="saveContent">保存</el-button>
@@ -31,19 +35,19 @@
         
         <!-- 新增笔记 -->
         <el-dialog
-                title="添加笔记"
+                title="新增笔记"
                 :visible.sync="createCard"
                 @close="createCardClose"
                 width="400px">
             <el-input
-                    ref="bookName"
-                    placeholder="笔记名称"
-                    v-model="bookName"
-                    autofocus
-                    maxlength="15"
-                    @keyup.native.enter="writeFile"
-                    show-word-limit
-                    clearable>
+                ref="bookName"
+                placeholder="笔记名称"
+                v-model="bookName"
+                autofocus
+                maxlength="15"
+                @keyup.native.enter="writeFile"
+                show-word-limit
+                clearable>
             </el-input>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="createCard = false">取 消</el-button>
@@ -71,23 +75,33 @@
                 fileSelect: "", // 当前选择的文件
                 dataObj: {}, // 所有的数据
                 isEditorClear: false,
+                activeIndex: 0 // 左侧菜单激活项
             }
         },
         components: {
             WangEditor
         },
         methods: {
-            readFileSync(fileName) { // 获取文件内容
+            readFileSync(fileName, index) { // 获取文件内容
                 let fileNameTemp = this.targetDir + "/" + fileName + ".txt";
                 this.bookContent = fs.readFileSync(fileNameTemp, 'utf-8');
                 this.bookName = fileName;
+                this.activeIndex = index;
+
+                this.$notify({
+                    title: '提示',
+                    message: "已切换至【"+ fileName +"】",
+                    type: 'success',
+                    duration: 1000
+                });
             },
             writeFile() { // 生成文件
                 if (this.bookList.indexOf(this.bookName) !== -1) {
                     this.$notify({
                         title: '提示',
                         message: "文件已经存在",
-                        type: 'warning'
+                        type: 'warning',
+                        duration: 1000
                     });
                     return;
                 }
@@ -98,14 +112,14 @@
                         return console.log(err);
                     }
 
-                    this.readFileSync(this.bookName);
                     this.getDataList();
                     this.createCard = false;
 
                     this.$notify({
                         title: '提示',
                         message: this.bookName + " 创建成功",
-                        type: 'success'
+                        type: 'success',
+                        duration: 1000
                     });
                 });
             },
@@ -119,7 +133,8 @@
                     this.$notify({
                         title: '提示',
                         message: fileName + '删除成功！',
-                        type: 'success'
+                        type: 'success',
+                        duration: 1000
                     });
 
                     this.getDataList();
@@ -151,7 +166,8 @@
                     this.$notify({
                         title: '提示',
                         message: this.bookName + " 保存成功",
-                        type: 'success'
+                        type: 'success',
+                        duration: 1500
                     });
                 });
             },
@@ -214,15 +230,27 @@
         }
         
         .card-box {
-            padding: 52px 10px 10px;
+            padding: 52px 0 0;
+            border-bottom: 1px solid #f2f2f2;
             
             .el-card {
-                margin-bottom: 10px;
+                border: none;
+                border-top: 1px solid #f2f2f2;
                 cursor: pointer;
+                -webkit-border-radius: 0;
+                border-radius: 0;
+                -webkit-transition: .5s;
+                transition: .5s;
+                &:hover, &.active{
+                    padding-left: 10px;
+                    background-color: #f8f8f8;
+                    -webkit-transition: .5s;
+                    transition: .5s;
+                }
             }
             
             .el-card__body {
-                padding: 12px;
+                padding: 15px;
                 color: #666;
             }
         }
@@ -245,17 +273,18 @@
             left: 300px;
             line-height: 60px;
         }
-        
-        .el-textarea {
-            height: 100%;
-            
-            /deep/ textarea {
-                padding: 15px;
-                resize: none;
-                border: none;
-                height: 100%;
-                background-color: #fefefe;
-                line-height: 1.8;
+
+        .about-info{
+            padding: 15px;
+            background-color: #fefefe;
+            line-height: 1.8;
+            color: #999999;
+            font-size: 14px;
+            h2{
+                margin: 0 0 10px;
+            }
+            p{
+                margin: 0;
             }
         }
     }

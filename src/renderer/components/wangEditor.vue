@@ -124,7 +124,7 @@
         }
         .text {
             border-top: 1px solid #eeeeee;
-            height: 90%;
+            height: 95%;
         }
         /deep/ .w-e-text{
             padding: 15px;
