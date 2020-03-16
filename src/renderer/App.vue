@@ -91,7 +91,7 @@
 
                     this.$notify({
                         title: '提示',
-                        message: "已切换至【" + fileName + "】",
+                        message: "已切换至 " + fileName,
                         type: 'success',
                         duration: 1000
                     });
@@ -117,16 +117,16 @@
                         return console.log(err);
                     }
 
-                    this.getDataList();
-                    this.reset();
-                    this.createCard = false;
-
                     this.$notify({
                         title: '提示',
                         message: this.bookName + " 创建成功",
                         type: 'success',
                         duration: 1000
                     });
+
+                    this.getDataList();
+                    this.reset();
+                    this.createCard = false;
                 });
             },
             removeFile(fileName) { // 删除文件
@@ -143,7 +143,7 @@
 
                         this.$notify({
                             title: '提示',
-                            message: fileName + '删除成功！',
+                            message: fileName + ' 删除成功',
                             type: 'success',
                             duration: 1000
                         });
