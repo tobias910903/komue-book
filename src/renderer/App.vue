@@ -124,23 +124,32 @@
                 });
             },
             removeFile(fileName) { // 删除文件
-                let tempPath = this.targetDir + "/" + fileName + ".txt";
-                fs.unlink(tempPath, (err) => {
-                    if (err) {
-                        throw err;
-                    }
 
-                    this.$notify({
-                        title: '提示',
-                        message: fileName + '删除成功！',
-                        type: 'success',
-                        duration: 1000
-                    });
+                this.$confirm('确认删除该文件?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let tempPath = this.targetDir + "/" + fileName + ".txt";
+                    fs.unlink(tempPath, (err) => {
+                        if (err) {
+                            throw err;
+                        }
 
-                    this.getDataList();
-                    this.bookName = "";
-                    this.bookContent = "";
-                })
+                        this.$notify({
+                            title: '提示',
+                            message: fileName + '删除成功！',
+                            type: 'success',
+                            duration: 1000
+                        });
+
+                        this.getDataList();
+                        this.bookName = "";
+                        this.bookContent = "";
+                    })
+                }).catch(() => {
+
+                });
             },
             getDataList() { // 获取文件列表
                 let dirList = fs.readdirSync(this.targetDir);
