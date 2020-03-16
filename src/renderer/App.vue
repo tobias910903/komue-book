@@ -28,10 +28,7 @@
             <el-container>
                 <el-main>
                     <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent"></wang-editor>
-                    <div class="about-info" v-else>
-                        <h2>Komue-book 使用说明</h2>
-                        <p>保存：Ctrl+S</p>
-                    </div>
+                    <about-info v-else></about-info>
                 </el-main>
                 <el-footer v-if="!!bookName && !createCard">
                     <el-button type="primary" size="small" @click="saveContent">保存</el-button>
@@ -39,34 +36,13 @@
                 </el-footer>
             </el-container>
         </el-container>
-        
-        <!-- 新增笔记 -->
-        <el-dialog
-                title="新增笔记"
-                :visible.sync="createCard"
-                @close="reset"
-                width="400px">
-            <el-input
-                    ref="bookName"
-                    placeholder="笔记名称"
-                    v-model="bookName"
-                    autofocus
-                    maxlength="15"
-                    @keyup.native.enter="writeFile"
-                    show-word-limit
-                    clearable>
-            </el-input>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="createCard = false">取 消</el-button>
-                <el-button type="primary" @click="writeFile">确 定</el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 
 <script>
     import Vue from 'vue';
     import WangEditor from '@/components/wangEditor'
+    import AboutInfo from '@/components/aboutInfo'
 
     const fs = require('fs');
 
@@ -92,7 +68,8 @@
             }
         },
         components: {
-            WangEditor
+            WangEditor,
+            AboutInfo
         },
         methods: {
             readFile(fileName, index) { // 获取文件内容
@@ -128,6 +105,9 @@
                         type: 'warning',
                         duration: 1000
                     });
+
+                    this.bookName = "";
+                    this.createCard = false;
                     return;
                 }
 
@@ -138,6 +118,7 @@
                     }
 
                     this.getDataList();
+                    this.reset();
                     this.createCard = false;
 
                     this.$notify({
@@ -204,12 +185,19 @@
                 });
             },
             createBook() {
-                setTimeout(() => {
-                    this.$refs.bookName.focus();
-                }, 300);
-
-                this.createCard = true;
-                this.reset();
+                this.$prompt('请输入笔记名称', '新增笔记', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^.{1,15}$/,
+                    inputErrorMessage: '笔记名长度为1-15位'
+                }).then(({value}) => {
+                    this.bookName = value;
+                    this.createCard = true;
+                    this.writeFile();
+                }).catch(() => {
+                    this.createCard = false;
+                    this.reset();
+                });
             },
             reset(){
                 this.activeIndex = -1;
@@ -247,9 +235,9 @@
         top: 0;
         left: 0;
         width: 300px;
-        
+        border-top: 1px solid #f2f2f2;
         border-right: 1px solid #f2f2f2;
-        
+
         .btn-group {
             position: fixed;
             z-index: 99;
@@ -298,7 +286,7 @@
         }
         
         .el-main {
-            padding: 0 0 60px 0;
+            padding: 2px 0 60px 0;
             height: 100%;
             border-top: 1px solid #f2f2f2;
         }
@@ -309,22 +297,6 @@
             right: 0;
             left: 300px;
             line-height: 60px;
-        }
-        
-        .about-info {
-            padding: 15px;
-            background-color: #fefefe;
-            line-height: 1.8;
-            color: #999999;
-            font-size: 14px;
-            
-            h2 {
-                margin: 0 0 10px;
-            }
-            
-            p {
-                margin: 0;
-            }
         }
     }
     
