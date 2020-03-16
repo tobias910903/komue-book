@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/renderer/assets/images/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icons/256x256.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/icons/256x256.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icons/icon.icns" beforeDir="false" afterPath="$PROJECT_DIR$/build/icons/icon.icns" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/icons/icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/build/icons/icon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,14 +38,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/renderer/App.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="108" column="37" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
+            <state relative-caret-position="-714">
+              <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding>
                 <element signature="e#2745#2767#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/renderer/components/aboutInfo.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -110,8 +114,8 @@
         <option value="$PROJECT_DIR$/src/renderer/router/index.js" />
         <option value="$PROJECT_DIR$/src/renderer/components/wangEditor.vue" />
         <option value="$PROJECT_DIR$/src/main/index.js" />
-        <option value="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" />
         <option value="$PROJECT_DIR$/src/renderer/App.vue" />
+        <option value="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" />
       </list>
     </option>
   </component>
@@ -253,7 +257,7 @@
       <workItem from="1583936807694" duration="882000" />
       <workItem from="1584194393532" duration="3557000" />
       <workItem from="1584255037096" duration="3532000" />
-      <workItem from="1584355218455" duration="7054000" />
+      <workItem from="1584355218455" duration="8654000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
@@ -297,11 +301,18 @@
       <option name="project" value="LOCAL" />
       <updated>1584257918649</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="窗口设置最小宽高、提取说明文档、更换icon">
+      <created>1584365034474</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1584365034476</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37723000" />
+    <option name="totallyTimeSpent" value="39323000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
@@ -341,7 +352,8 @@
     <MESSAGE value="新增富文本编辑器" />
     <MESSAGE value="修改组件name" />
     <MESSAGE value="优化样式 新增说明" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化样式 新增说明" />
+    <MESSAGE value="窗口设置最小宽高、提取说明文档、更换icon" />
+    <option name="LAST_COMMIT_MESSAGE" value="窗口设置最小宽高、提取说明文档、更换icon" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/electron/electron.d.ts" />
@@ -493,20 +505,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/renderer/components/aboutInfo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="108" column="37" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
+        <state relative-caret-position="-714">
+          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
           <folding>
             <element signature="e#2745#2767#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/renderer/components/aboutInfo.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
         </state>
       </provider>
     </entry>
