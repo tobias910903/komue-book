@@ -4,15 +4,22 @@
             <el-aside>
                 <div class="btn-group">
                     <el-button type="success" size="small" @click="createBook">新增</el-button>
-                    <el-button type="text" size="small" @click="bookName = ''">使用说明</el-button>
+                    <el-button type="text" size="small" @click="reset">使用说明</el-button>
                     <!--
                     <el-button type="primary" size="small" icon="el-icon-upload2">导入</el-button>
                     <el-button type="primary" size="small" icon="el-icon-download">导出</el-button>
                     -->
+                    <div class="search">
+                        <el-input
+                            placeholder="搜索..."
+                            v-model="searchKey"
+                            clearable>
+                        </el-input>
+                    </div>
                 </div>
                 
                 <div class="card-box">
-                    <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFileSync(i, index)" :class="index == activeIndex && 'active'">
+                    <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">
                         {{dataObj[i]}}
                     </el-card>
                 </div>
@@ -37,17 +44,17 @@
         <el-dialog
                 title="新增笔记"
                 :visible.sync="createCard"
-                @close="createCardClose"
+                @close="reset"
                 width="400px">
             <el-input
-                ref="bookName"
-                placeholder="笔记名称"
-                v-model="bookName"
-                autofocus
-                maxlength="15"
-                @keyup.native.enter="writeFile"
-                show-word-limit
-                clearable>
+                    ref="bookName"
+                    placeholder="笔记名称"
+                    v-model="bookName"
+                    autofocus
+                    maxlength="15"
+                    @keyup.native.enter="writeFile"
+                    show-word-limit
+                    clearable>
             </el-input>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="createCard = false">取 消</el-button>
@@ -69,37 +76,55 @@
             return {
                 targetDir: 'data', // 数据所在文件夹
                 createCard: false, // 添加笔记弹窗
+                searchKey: "", // 搜索框
                 bookName: "", // 笔记名
                 bookList: [], // 文件列表
                 bookContent: "", // 文件内容
                 fileSelect: "", // 当前选择的文件
                 dataObj: {}, // 所有的数据
                 isEditorClear: false,
-                activeIndex: 0 // 左侧菜单激活项
+                activeIndex: -1 // 左侧菜单激活项
+            }
+        },
+        watch: {
+            searchKey(n, o){
+                this.reset();
             }
         },
         components: {
             WangEditor
         },
         methods: {
-            readFileSync(fileName, index) { // 获取文件内容
+            readFile(fileName, index) { // 获取文件内容
                 let fileNameTemp = this.targetDir + "/" + fileName + ".txt";
-                this.bookContent = fs.readFileSync(fileNameTemp, 'utf-8');
-                this.bookName = fileName;
-                this.activeIndex = index;
+                fs.readFile(fileNameTemp, (err, data) => {
+                    if (err) {
+                        this.$notify({
+                            title: '提示',
+                            message: "查询列表失败",
+                            type: 'fail',
+                            duration: 1000
+                        });
+                        return;
+                    }
+                    
+                    this.bookContent = data;
+                    this.bookName = fileName;
+                    this.activeIndex = index;
 
-                this.$notify({
-                    title: '提示',
-                    message: "已切换至【"+ fileName +"】",
-                    type: 'success',
-                    duration: 1000
+                    this.$notify({
+                        title: '提示',
+                        message: "已切换至【" + fileName + "】",
+                        type: 'success',
+                        duration: 1000
+                    });
                 });
             },
             writeFile() { // 生成文件
                 if (this.bookList.indexOf(this.bookName) !== -1) {
                     this.$notify({
                         title: '提示',
-                        message: "文件已经存在",
+                        message: "笔记已经存在",
                         type: 'warning',
                         duration: 1000
                     });
@@ -124,8 +149,7 @@
                 });
             },
             removeFile(fileName) { // 删除文件
-
-                this.$confirm('确认删除该文件?', '提示', {
+                this.$confirm('确认删除该笔记', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -144,8 +168,7 @@
                         });
 
                         this.getDataList();
-                        this.bookName = "";
-                        this.bookContent = "";
+                        this.reset();
                     })
                 }).catch(() => {
 
@@ -181,21 +204,21 @@
                 });
             },
             createBook() {
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.$refs.bookName.focus();
                 }, 300);
-                
-                this.bookName = "";
+
                 this.createCard = true;
-                this.bookContent = "";
+                this.reset();
             },
-            createCardClose(){
+            reset(){
+                this.activeIndex = -1;
                 this.bookName = "";
                 this.bookContent = "";
             },
             editorChange(val) {
                 console.log(val)
-            },
+            }
         },
         mounted() {
             // 创建数据文件夹
@@ -236,10 +259,13 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
+            .search{
+                margin-top: 10px;
+            }
         }
         
         .card-box {
-            padding: 52px 0 0;
+            padding: 105px 0 0;
             border-bottom: 1px solid #f2f2f2;
             
             .el-card {
@@ -248,13 +274,14 @@
                 cursor: pointer;
                 -webkit-border-radius: 0;
                 border-radius: 0;
-                -webkit-transition: .5s;
-                transition: .5s;
-                &:hover, &.active{
+                -webkit-transition: .2s;
+                transition: .2s;
+                
+                &:hover, &.active {
                     padding-left: 10px;
                     background-color: #f8f8f8;
-                    -webkit-transition: .5s;
-                    transition: .5s;
+                    -webkit-transition: .2s;
+                    transition: .2s;
                 }
             }
             
@@ -273,6 +300,7 @@
         .el-main {
             padding: 0 0 60px 0;
             height: 100%;
+            border-top: 1px solid #f2f2f2;
         }
         
         .el-footer {
@@ -282,17 +310,19 @@
             left: 300px;
             line-height: 60px;
         }
-
-        .about-info{
+        
+        .about-info {
             padding: 15px;
             background-color: #fefefe;
             line-height: 1.8;
             color: #999999;
             font-size: 14px;
-            h2{
+            
+            h2 {
                 margin: 0 0 10px;
             }
-            p{
+            
+            p {
                 margin: 0;
             }
         }

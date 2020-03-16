@@ -22,7 +22,6 @@
         },
         props: {
             value: {
-                type: String,
                 default: ''
             },
             isClear: {
@@ -69,13 +68,13 @@
                     'head', // 标题
                     'bold', // 粗体
                     'fontSize', // 字号
-                    'fontName', // 字体
+                    // 'fontName', // 字体
                     'italic', // 斜体
                     'underline', // 下划线
                     'strikeThrough', // 删除线
                     'foreColor', // 文字颜色
                     'backColor', // 背景颜色
-                    'link', // 插入链接
+                    // 'link', // 插入链接
                     'list', // 列表
                     'justify', // 对齐方式
                     'quote', // 引用
