@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <el-container>
+        <el-container @click.native.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">
                     <el-button type="success" size="small" @click="createBook">新增</el-button>
@@ -10,18 +10,12 @@
                     <el-button type="primary" size="small" icon="el-icon-download">导出</el-button>
                     -->
                     <div class="search">
-                        <el-input
-                            placeholder="搜索..."
-                            v-model="searchKey"
-                            clearable>
-                        </el-input>
+                        <el-input placeholder="搜索..." v-model="searchKey" clearable></el-input>
                     </div>
                 </div>
                 
                 <div class="card-box">
-                    <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">
-                        {{dataObj[i]}}
-                    </el-card>
+                    <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">{{dataObj[i]}}</el-card>
                 </div>
             </el-aside>
             
@@ -30,12 +24,15 @@
                     <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
                     <about-info v-else></about-info>
                 </el-main>
-                <el-footer v-if="!!bookName && !createCard">
-                    <el-button type="primary" size="small" @click="saveContent">保存</el-button>
-                    <el-button type="danger" size="small" @click="removeFile(bookName)">删除</el-button>
-                </el-footer>
             </el-container>
         </el-container>
+        
+        <div class="mouse-menu" :style="mouseMenuStyle" v-show="mouseMenuShow">
+            <el-card>
+                <el-button type="primary" size="small" @click="saveContent">保存</el-button><br />
+                <el-button type="danger" size="small" @click="removeFile(bookName)">删除</el-button>
+            </el-card>
+        </div>
     </div>
 </template>
 
@@ -59,11 +56,16 @@
                 fileSelect: "", // 当前选择的文件
                 dataObj: {}, // 所有的数据
                 isEditorClear: false,
-                activeIndex: -1 // 左侧菜单激活项
+                activeIndex: -1, // 左侧菜单激活项
+                mouseMenuShow: false, // 是否显示右键菜单
+                mouseMenuStyle: { // 右击菜单定位
+                    top: 0,
+                    left: 0
+                }
             }
         },
         watch: {
-            searchKey(n, o){
+            searchKey(n, o) {
                 this.reset();
             }
         },
@@ -84,7 +86,7 @@
                         });
                         return;
                     }
-                    
+
                     this.bookContent = data;
                     this.bookName = fileName;
                     this.activeIndex = index;
@@ -182,6 +184,8 @@
                         type: 'success',
                         duration: 1500
                     });
+
+                    this.mouseMenuShow = false;
                 });
             },
             createBook() {
@@ -199,18 +203,21 @@
                     this.reset();
                 });
             },
-            reset(){
+            reset() {
                 this.activeIndex = -1;
                 this.bookName = "";
                 this.bookContent = "";
+                this.mouseMenuShow = false;
             },
             editorChange(val) {
-                console.log(val)
+                console.log(val);
             },
-            mouseMenu(e){
-                console.log("触发右击事件：", e);
-                // e.pageX
-                // e.pageY
+            mouseMenu(e) {
+                this.mouseMenuShow = true;
+                this.mouseMenuStyle = {
+                    top: e.pageY + "px",
+                    left: e.pageX + "px"
+                }
             }
         },
         mounted() {
@@ -242,7 +249,7 @@
         width: 300px;
         border-top: 1px solid #f2f2f2;
         border-right: 1px solid #f2f2f2;
-
+        
         .btn-group {
             position: fixed;
             z-index: 99;
@@ -252,7 +259,8 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            .search{
+            
+            .search {
                 margin-top: 10px;
             }
         }
@@ -291,17 +299,20 @@
         }
         
         .el-main {
-            padding: 2px 0 60px 0;
+            padding: 2px 0 0 0;
             height: 100%;
             border-top: 1px solid #f2f2f2;
         }
+    }
+    
+    .mouse-menu {
+        position: fixed;
+        /deep/ .el-card__body{
+            padding: 10px 10px 0;
+        }
         
-        .el-footer {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            left: 300px;
-            line-height: 60px;
+        /deep/ .el-button{
+            margin-bottom: 10px;
         }
     }
     
