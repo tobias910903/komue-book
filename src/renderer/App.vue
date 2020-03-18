@@ -27,7 +27,7 @@
             
             <el-container>
                 <el-main>
-                    <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent"></wang-editor>
+                    <wang-editor v-model="bookContent" :isClear="isEditorClear" @change="editorChange" v-if="!!bookName && !createCard" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
                     <about-info v-else></about-info>
                 </el-main>
                 <el-footer v-if="!!bookName && !createCard">
@@ -206,6 +206,11 @@
             },
             editorChange(val) {
                 console.log(val)
+            },
+            mouseMenu(e){
+                console.log("触发右击事件：", e);
+                // e.pageX
+                // e.pageY
             }
         },
         mounted() {
