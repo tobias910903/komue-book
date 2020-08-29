@@ -116,6 +116,13 @@
                 let fileNameTemp = this.targetDir + "/" + this.bookName + ".txt";
                 fs.writeFile(fileNameTemp, "", (err) => {
                     if (err) {
+                        this.$notify({
+                            title: '提示',
+                            message: '当前目录没有权限进行此操作，请检查系统权限',
+                            type: 'fail',
+                            duration: 1500
+                        });
+                        
                         return console.log(err);
                     }
 
@@ -140,6 +147,13 @@
                     let tempPath = this.targetDir + "/" + fileName + ".txt";
                     fs.unlink(tempPath, (err) => {
                         if (err) {
+                            this.$notify({
+                                title: '提示',
+                                message: '当前目录没有权限进行此操作，请检查系统权限',
+                                type: 'fail',
+                                duration: 1500
+                            });
+                            
                             throw err;
                         }
 
@@ -175,6 +189,13 @@
                 let fileNameTemp = this.targetDir + "/" + this.bookName + ".txt";
                 fs.writeFile(fileNameTemp, this.bookContent, (err) => {
                     if (err) {
+                        this.$notify({
+                            title: '提示',
+                            message: '当前目录没有权限进行此操作，请检查系统权限',
+                            type: 'fail',
+                            duration: 1500
+                        });
+                        
                         return console.log(err);
                     }
 
@@ -313,6 +334,7 @@
         
         /deep/ .el-button{
             margin-bottom: 10px;
+            padding: 8px 30px;
         }
     }
     
