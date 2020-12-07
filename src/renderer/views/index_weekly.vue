@@ -17,6 +17,10 @@
                 <div class="card-box">
                     <el-card shadow="never" v-for="(i, index) in bookList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">{{dataObj[i]}}</el-card>
                 </div>
+
+                <div class="btn-group btn-group-bottom">
+                    <el-button type="primary" size="small" @click="showBook">切换至【笔记】</el-button>
+                </div>
             </el-aside>
 
             <el-container>
@@ -74,6 +78,10 @@
             AboutInfo
         },
         methods: {
+            showBook(){
+                this.$router.push({name: 'index_book'});
+            },
+
             readFile(fileName, index) { // 获取文件内容
                 let fileNameTemp = this.targetDir + "/" + fileName + ".txt";
                 fs.readFile(fileNameTemp, (err, data) => {
@@ -254,78 +262,5 @@
 </script>
 
 <style lang="less">
-    .el-aside {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 300px;
-        border-top: 1px solid #f2f2f2;
-        border-right: 1px solid #f2f2f2;
 
-        .btn-group {
-            position: fixed;
-            z-index: 99;
-            padding: 10px;
-            background-color: #ffffff;
-            width: 299px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-            .search {
-                margin-top: 10px;
-            }
-        }
-
-        .card-box {
-            padding: 105px 0 0;
-            border-bottom: 1px solid #f2f2f2;
-
-            .el-card {
-                border: none;
-                border-top: 1px solid #f2f2f2;
-                cursor: pointer;
-                -webkit-border-radius: 0;
-                border-radius: 0;
-                -webkit-transition: .2s;
-                transition: .2s;
-
-                &:hover, &.active {
-                    padding-left: 10px;
-                    background-color: #f8f8f8;
-                    -webkit-transition: .2s;
-                    transition: .2s;
-                }
-            }
-
-            .el-card__body {
-                padding: 15px;
-                color: #666;
-            }
-        }
-    }
-
-    .el-container {
-        > .el-container {
-            margin-left: 300px;
-        }
-
-        .el-main {
-            padding: 2px 0 0 0;
-            height: 100%;
-            border-top: 1px solid #f2f2f2;
-        }
-    }
-
-    .mouse-menu {
-        position: fixed;
-        /deep/ .el-card__body{
-            padding: 10px 10px 0;
-        }
-
-        /deep/ .el-button{
-            margin-bottom: 10px;
-            padding: 8px 30px;
-        }
-    }
 </style>
