@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box-content">
         <el-container @click.native.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">

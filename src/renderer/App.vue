@@ -60,7 +60,7 @@
 
         .card-box {
             padding: 105px 0 55px;
-            border-bottom: 1px solid #f2f2f2;
+            /*border-bottom: 1px solid #f2f2f2;*/
 
             .el-card {
                 border: none;
