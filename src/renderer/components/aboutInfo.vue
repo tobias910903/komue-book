@@ -21,6 +21,9 @@
         font-size: 14px;
         height: 100%;
         background: url("../assets/images/icon.png") center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
 
         /deep/ .el-alert{
             margin-bottom: 15px;
