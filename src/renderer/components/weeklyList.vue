@@ -1,41 +1,6 @@
 <template>
     <div class="weekly-list">
-        <el-button type="primary" size="small" @click='exportFile'>导出周报</el-button>
-
-        <table id="table1">
-            <tbody>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-                <tr>
-                    <td>文字</td>
-                    <td>咨询</td>
-                    <td>测试</td>
-                </tr>
-            </tbody>
-        </table>
+        周报
     </div>
 </template>
 
@@ -46,9 +11,7 @@
             return {}
         },
         methods: {
-            exportFile(){
-                tableExport('table1', 'test', 'xls');
-            }
+
         },
         mounted() {
 
