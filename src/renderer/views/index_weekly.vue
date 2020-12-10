@@ -1,6 +1,6 @@
 <template>
     <div class="box-content">
-        <el-container @click.native.left="mouseMenuShow = false">
+        <el-container @click.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">
                     <el-button type="success" size="small" @click="createFile">新增周报</el-button>
@@ -23,7 +23,43 @@
             <el-container>
                 <el-main>
                     <!-- v-model="fileContent" -->
-                    <weekly-list v-if="!!fileName && !createCard" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></weekly-list>
+                    <div class="weekly-list" v-if="!!fileName && !createCard" @keyup.ctrl.83="saveContent" @contextmenu.prevent="mouseMenu($event)">
+                        <el-form :inline="true" :model="formWeekly">
+                            <el-form-item label="时间">
+                                <el-date-picker
+                                    v-model="formWeekly.date"
+                                    type="daterange"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期">
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="姓名">
+                                <el-input v-model="formWeekly.name" placeholder="姓名"></el-input>
+                            </el-form-item>
+                            <el-form-item label="部门">
+                                <el-input v-model="formWeekly.department" placeholder="部门"></el-input>
+                            </el-form-item>
+                            <el-form-item label="岗位">
+                                <el-input v-model="formWeekly.job" placeholder="岗位"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="onSubmit">导出Excel</el-button>
+                            </el-form-item>
+                        </el-form>
+                        
+                        <!-- table -->
+                        <table>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                            </tr>
+                        </table>
+                        <!-- // table -->
+                    </div>
                     <about-info v-else></about-info>
                 </el-main>
             </el-container>
@@ -40,7 +76,6 @@
 
 <script>
     import Vue from 'vue';
-    import WeeklyList from '@/components/weeklyList'
     import AboutInfo from '@/components/aboutInfo'
 
     const fs = require('fs');
@@ -62,6 +97,13 @@
                 mouseMenuStyle: { // 右击菜单定位
                     top: 0,
                     left: 0
+                },
+
+                formWeekly: {
+                    date: '',
+                    name: '',
+                    department: "系统实验室",
+                    job: "WEB前端开发"
                 }
             }
         },
@@ -71,14 +113,12 @@
             }
         },
         components: {
-            WeeklyList,
             AboutInfo
         },
         methods: {
             showFile(){
                 this.$router.push({name: 'index_book'});
             },
-
             readFile(fileName, index) { // 获取文件内容
                 let fileNameTemp = this.targetDir + "/" + fileName + ".txt";
                 fs.readFile(fileNameTemp, (err, data) => {
@@ -241,6 +281,9 @@
                     top: e.pageY + "px",
                     left: e.pageX + "px"
                 }
+            },
+            onSubmit() {
+                console.log('submit!');
             }
         },
         mounted() {
@@ -256,5 +299,22 @@
 </script>
 
 <style lang="less">
-
+    .weekly-list {
+        padding: 15px;
+        background-color: #fefefe;
+        line-height: 1.8;
+        color: #999999;
+        font-size: 14px;
+        height: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        
+        
+        /*p {
+            margin: 0;
+            color: #999999;
+            font-size: 14px;
+        }*/
+    }
 </style>
