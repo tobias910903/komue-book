@@ -1,6 +1,6 @@
 <template>
     <div class="box-content">
-        <el-container @click.left="mouseMenuShow = false">
+        <el-container @click.native.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">
                     <el-button type="success" size="small" @click="createFile">新增周报</el-button>
@@ -22,43 +22,61 @@
 
             <el-container>
                 <el-main>
-                    <!-- v-model="fileContent" -->
                     <div class="weekly-list" v-if="!!fileName && !createCard" @keyup.ctrl.83="saveContent" @contextmenu.prevent="mouseMenu($event)">
-                        <el-form :inline="true" :model="formWeekly">
-                            <el-form-item label="时间">
-                                <el-date-picker
-                                    v-model="formWeekly.date"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                                </el-date-picker>
-                            </el-form-item>
-                            <el-form-item label="姓名">
+                        <el-row :gutter="10" class="weekly-item-box">
+                            <el-col :span="8">
                                 <el-input v-model="formWeekly.name" placeholder="姓名"></el-input>
-                            </el-form-item>
-                            <el-form-item label="部门">
+                            </el-col>
+                            <el-col :span="8">
                                 <el-input v-model="formWeekly.department" placeholder="部门"></el-input>
-                            </el-form-item>
-                            <el-form-item label="岗位">
+                            </el-col>
+                            <el-col :span="8">
                                 <el-input v-model="formWeekly.job" placeholder="岗位"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button type="primary" @click="onSubmit">导出Excel</el-button>
-                            </el-form-item>
-                        </el-form>
-                        
-                        <!-- table -->
-                        <table>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                            </tr>
-                        </table>
-                        <!-- // table -->
+                            </el-col>
+                            <el-col :span="24">
+                                <el-date-picker
+                                        v-model="formWeekly.date"
+                                        type="daterange"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期"
+                                        format="yyyy 年 MM 月 dd 日"
+                                        value-format="yyyy-MM-dd">
+                                </el-date-picker>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="10" v-for="(item, index) in dList" :key="index" class="weekly-item-box">
+                            <el-col :span="24">
+                                <el-alert
+                                        :title="'星期' + dateList[index]"
+                                        :closable="false"
+                                        type="success">
+                                </el-alert>
+                            </el-col>
+                            <el-tag class="add-item" size="small" @click="addItem(item)">新增任务</el-tag>
+
+                            <div class="weekly-item-sub" v-for="(k, indexSub) in formWeekly[item]" :key="indexSub">
+                                <el-col :span="24">
+                                    <el-input
+                                            placeholder="任务名称"
+                                            v-model="k.task">
+                                        <template slot="append">
+                                            <span @click="delItem(item, indexSub)">删除</span>
+                                        </template>
+                                    </el-input>
+                                </el-col>
+                                <el-col :span="24">
+                                    <el-input
+                                            type="textarea"
+                                            :rows="3"
+                                            placeholder="完成情况"
+                                            v-model="k.detail">
+                                    </el-input>
+                                </el-col>
+                            </div>
+                        </el-row>
+                        <br />
                     </div>
                     <about-info v-else></about-info>
                 </el-main>
@@ -67,6 +85,7 @@
 
         <div class="mouse-menu" :style="mouseMenuStyle" v-show="mouseMenuShow">
             <el-card>
+                <el-button type="primary" size="small" @click="exportFile">导出</el-button><br />
                 <el-button type="primary" size="small" @click="saveContent">保存</el-button><br />
                 <el-button type="danger" size="small" @click="removeFile(fileName)">删除</el-button>
             </el-card>
@@ -89,7 +108,6 @@
                 searchKey: "", // 搜索框
                 fileName: "", // 周报名
                 fileList: [], // 文件列表
-                fileContent: "", // 文件内容
                 fileSelect: "", // 当前选择的文件
                 dataObj: {}, // 所有的数据
                 activeIndex: -1, // 左侧菜单激活项
@@ -103,8 +121,38 @@
                     date: '',
                     name: '',
                     department: "系统实验室",
-                    job: "WEB前端开发"
-                }
+                    job: "WEB前端开发",
+                    d1: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d2: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d3: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d4: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d5: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d6: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d7: [{
+                        task: '',
+                        detail: ''
+                    }]
+                },
+                dList: ['d1','d2','d3','d4','d5','d6','d7'],
+                dateList: ['一','二','三','四','五','六','日']
             }
         },
         watch: {
@@ -132,7 +180,12 @@
                         return;
                     }
 
-                    this.fileContent = data;
+                    if(data.length == 0){
+                        this.resetForm();
+                    }else{
+                        this.formWeekly = JSON.parse(data);
+                    }
+
                     this.fileName = fileName;
                     this.activeIndex = index;
 
@@ -232,7 +285,7 @@
                 }
 
                 let fileNameTemp = this.targetDir + "/" + this.fileName + ".txt";
-                fs.writeFile(fileNameTemp, this.fileContent, (err) => {
+                fs.writeFile(fileNameTemp, JSON.stringify(this.formWeekly), (err) => {
                     if (err) {
                         this.$notify({
                             title: '提示',
@@ -272,8 +325,44 @@
             reset() {
                 this.activeIndex = -1;
                 this.fileName = "";
-                this.fileContent = "";
+                this.resetForm();
                 this.mouseMenuShow = false;
+            },
+            resetForm(){
+                this.formWeekly = {
+                    date: '',
+                    name: '',
+                    department: "系统实验室",
+                    job: "WEB前端开发",
+                    d1: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d2: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d3: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d4: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d5: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d6: [{
+                        task: '',
+                        detail: ''
+                    }],
+                    d7: [{
+                        task: '',
+                        detail: ''
+                    }]
+                };
             },
             mouseMenu(e) {
                 this.mouseMenuShow = true;
@@ -282,8 +371,32 @@
                     left: e.pageX + "px"
                 }
             },
-            onSubmit() {
-                console.log('submit!');
+            exportFile() {
+                console.log('导出');
+            },
+            addItem(item){ // 添加内容
+                this.formWeekly[item].push({
+                    task: '',
+                    detail: '',
+                    reason: '',
+                    finish: '',
+                    percent: ''
+                });
+                this.$notify({
+                    title: '提示',
+                    message: "新增成功",
+                    type: 'success',
+                    duration: 1500
+                });
+            },
+            delItem(item, index){ // 删除内容
+                this.formWeekly[item].splice(index, 1);
+                this.$notify({
+                    title: '提示',
+                    message: "删除成功",
+                    type: 'success',
+                    duration: 1500
+                });
             }
         },
         mounted() {
@@ -309,12 +422,49 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        
-        
+
+
         /*p {
             margin: 0;
             color: #999999;
             font-size: 14px;
         }*/
+
+        .weekly-item-box{
+            position: relative;
+            & + .weekly-item-box{
+                padding-top: 20px;
+            }
+            .el-col{
+                margin-bottom: 10px;
+            }
+            .add-item{
+                position: absolute;
+                right: 15px;
+                top: 30px;
+                cursor: pointer;
+                &:hover{
+                    color: #000000;
+                }
+            }
+
+            .el-input-group__append{
+                cursor: pointer;
+                &:hover{
+                    background: #666;
+                    color: #fff;
+                }
+            }
+
+            .weekly-item-sub{
+                position: relative;
+                clear: both;
+                overflow: hidden;
+                & + .weekly-item-sub{
+                    padding-top: 10px;
+                    border-top: 1px dashed #cccccc;
+                }
+            }
+        }
     }
 </style>
