@@ -1,1 +1,0 @@
-{"date":"","name":"","department":"系统实验室","job":"WEB前端开发","d1":[{"task":"","detail":"","reason":"","finish":"","percent":""},{"task":"","detail":"","reason":"","finish":"","percent":""}],"d2":[{"task":"","detail":"","reason":"","finish":"","percent":""}],"d3":[],"d4":[],"d5":[],"d6":[],"d7":[]}

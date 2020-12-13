@@ -22,7 +22,7 @@
 
             <el-container>
                 <el-main>
-                    <div class="weekly-list" v-if="!!fileName && !createCard" @keyup.ctrl.83="saveContent" @contextmenu.prevent="mouseMenu($event)">
+                    <div class="weekly-wrapper" v-if="!!fileName && !createCard" @keyup.ctrl.83="saveContent" @contextmenu.prevent="mouseMenu($event)">
                         <el-row :gutter="10" class="weekly-item-box">
                             <el-col :span="8">
                                 <el-input v-model="formWeekly.name" placeholder="姓名"></el-input>
@@ -33,7 +33,10 @@
                             <el-col :span="8">
                                 <el-input v-model="formWeekly.job" placeholder="岗位"></el-input>
                             </el-col>
-                            <el-col :span="24">
+                            <el-col :span="8">
+                                <el-input v-model="fileExportPath" placeholder="文件输出路径"></el-input>
+                            </el-col>
+                            <el-col :span="16">
                                 <el-date-picker
                                         v-model="formWeekly.date"
                                         type="daterange"
@@ -98,11 +101,14 @@
     import AboutInfo from '@/components/aboutInfo'
 
     const fs = require('fs');
+    const ejsExcel = require("ejsExcel");
 
     export default {
         name: 'indexBook',
         data() {
             return {
+                fileExportPath: 'C:\\Users\\Administrator\\Desktop\\', // 文件导出路径
+                templatePath: 'static/template/zhoubao.xlsx', // 模板地址
                 targetDir: 'data/weekly', // 数据所在文件夹
                 createCard: false, // 添加周报弹窗
                 searchKey: "", // 搜索框
@@ -118,7 +124,7 @@
                 },
 
                 formWeekly: {
-                    date: '',
+                    date: [],
                     name: '',
                     department: "系统实验室",
                     job: "WEB前端开发",
@@ -152,7 +158,7 @@
                     }]
                 },
                 dList: ['d1','d2','d3','d4','d5','d6','d7'],
-                dateList: ['一','二','三','四','五','六','日']
+                dateList: ['一','二','三','四','五','六','日'],
             }
         },
         watch: {
@@ -330,7 +336,7 @@
             },
             resetForm(){
                 this.formWeekly = {
-                    date: '',
+                    date: [],
                     name: '',
                     department: "系统实验室",
                     job: "WEB前端开发",
@@ -372,7 +378,52 @@
                 }
             },
             exportFile() {
-                console.log('导出');
+                let _this = this;
+                let stime = _this.formWeekly.date[0] || "";
+                let etime = _this.formWeekly.date[1] || "";
+                stime = stime.split('-');
+                etime = etime.split('-');
+                stime = stime[1] + stime[2];
+                etime = etime[1] + etime[2];
+                let excelname="周报("+ stime +"-"+ etime +")-"+ _this.formWeekly.name +".xlsx"; // 表名
+
+                // 获得Excel模板的buffer对象
+                let exlBuf = fs.readFileSync(_this.templatePath);
+
+                // 组装数据
+                let data = [];
+                let data1 = [];
+                data1.push(_this.formWeekly);
+                data.push(data1);
+
+                console.log('data: ', data);
+
+                //渲染Excel表格
+                ejsExcel.renderExcel(exlBuf, data).then(function(exlBuf2){
+                    fs.writeFile(_this.fileExportPath + excelname, exlBuf2, (err) => {
+                        if (err) {
+                            _this.$notify({
+                                title: '提示',
+                                message: '当前目录没有权限进行此操作，请检查系统权限',
+                                type: 'fail',
+                                duration: 1500
+                            });
+
+                            return console.log(err);
+                        }
+
+                        _this.$notify({
+                            title: '提示',
+                            message: "导出成功",
+                            type: 'success',
+                            duration: 1000
+                        });
+
+                        _this.mouseMenuShow = false;
+                    });
+                }).catch(function(err) {
+                    console.error(err);
+                });
             },
             addItem(item){ // 添加内容
                 this.formWeekly[item].push({
@@ -390,12 +441,20 @@
                 });
             },
             delItem(item, index){ // 删除内容
-                this.formWeekly[item].splice(index, 1);
-                this.$notify({
-                    title: '提示',
-                    message: "删除成功",
-                    type: 'success',
-                    duration: 1500
+                this.$confirm('确定删除？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.formWeekly[item].splice(index, 1);
+                    this.$notify({
+                        title: '提示',
+                        message: "删除成功",
+                        type: 'success',
+                        duration: 1500
+                    });
+                }).catch(() => {
+
                 });
             }
         },
@@ -412,7 +471,7 @@
 </script>
 
 <style lang="less">
-    .weekly-list {
+    .weekly-wrapper {
         padding: 15px;
         background-color: #fefefe;
         line-height: 1.8;
@@ -451,8 +510,7 @@
             .el-input-group__append{
                 cursor: pointer;
                 &:hover{
-                    background: #666;
-                    color: #fff;
+                    color: #ff0000;
                 }
             }
 
