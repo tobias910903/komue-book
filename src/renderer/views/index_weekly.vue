@@ -107,7 +107,7 @@
         name: 'indexBook',
         data() {
             return {
-                fileExportPath: 'C:\\Users\\Administrator\\Desktop\\', // 文件导出路径
+                fileExportPath: 'D:\\', // 文件导出路径
                 templatePath: 'static/template/zhoubao.xlsx', // 模板地址
                 targetDir: 'data/weekly', // 数据所在文件夹
                 createCard: false, // 添加周报弹窗
@@ -164,6 +164,11 @@
         watch: {
             searchKey(n, o) {
                 this.reset();
+            },
+            fileExportPath(n, o){
+                if(!!n){
+                    window.localStorage.setItem('fileExportPath', n);
+                }
             }
         },
         components: {
@@ -466,6 +471,12 @@
 
             // init
             this.getDataList();
+
+            // 设置文件导出路径
+            let fileExportPath = window.localStorage.getItem('fileExportPath');
+            if(!!fileExportPath){
+                this.fileExportPath = fileExportPath;
+            }
         }
     }
 </script>
