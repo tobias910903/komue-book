@@ -34,7 +34,7 @@
                                 <el-input v-model="formWeekly.job" placeholder="岗位"></el-input>
                             </el-col>
                             <el-col :span="8">
-                                <el-input v-model="fileExportPath" placeholder="文件输出路径"></el-input>
+                                <el-input v-model="fileExportPath" placeholder="文件导出路径"></el-input>
                             </el-col>
                             <el-col :span="16">
                                 <el-date-picker
@@ -57,7 +57,7 @@
                                         type="success">
                                 </el-alert>
                             </el-col>
-                            <el-tag class="add-item" size="small" @click="addItem(item)">新增任务</el-tag>
+                            <el-tag class="add-item" size="small" @click="addItem(item)">新增任务 <i class="el-icon-plus"></i></el-tag>
 
                             <div class="weekly-item-sub" v-for="(k, indexSub) in formWeekly[item]" :key="indexSub">
                                 <el-col :span="24">
@@ -73,7 +73,7 @@
                                     <el-input
                                             type="textarea"
                                             :rows="3"
-                                            placeholder="完成情况"
+                                            placeholder="工作内容"
                                             v-model="k.detail">
                                     </el-input>
                                 </el-col>
@@ -148,14 +148,8 @@
                         task: '',
                         detail: ''
                     }],
-                    d6: [{
-                        task: '',
-                        detail: ''
-                    }],
-                    d7: [{
-                        task: '',
-                        detail: ''
-                    }]
+                    d6: [],
+                    d7: []
                 },
                 dList: ['d1','d2','d3','d4','d5','d6','d7'],
                 dateList: ['一','二','三','四','五','六','日'],
@@ -365,14 +359,8 @@
                         task: '',
                         detail: ''
                     }],
-                    d6: [{
-                        task: '',
-                        detail: ''
-                    }],
-                    d7: [{
-                        task: '',
-                        detail: ''
-                    }]
+                    d6: [],
+                    d7: []
                 };
             },
             mouseMenu(e) {
@@ -384,25 +372,57 @@
             },
             exportFile() {
                 let _this = this;
-                let stime = _this.formWeekly.date[0] || "";
-                let etime = _this.formWeekly.date[1] || "";
-                stime = stime.split('-');
-                etime = etime.split('-');
-                stime = stime[1] + stime[2];
-                etime = etime[1] + etime[2];
+                let stimeAll = _this.formWeekly.date[0] || "";
+                let etimeAll = _this.formWeekly.date[1] || "";
+                stimeAll = stimeAll.split('-');
+                etimeAll = etimeAll.split('-');
+                let stime = stimeAll[1] + stimeAll[2];
+                let etime = etimeAll[1] + etimeAll[2];
                 let excelname="周报("+ stime +"-"+ etime +")-"+ _this.formWeekly.name +".xlsx"; // 表名
 
                 // 获得Excel模板的buffer对象
                 let exlBuf = fs.readFileSync(_this.templatePath);
 
-                // 组装数据
+                // 数据
                 let data = [];
-                let data1 = [];
-                data1.push(_this.formWeekly);
-                data.push(data1);
 
-                console.log('data: ', data);
-
+                // 基础信息
+                let dateStart = stimeAll[0] + "年" + stimeAll[1] + "月" + stimeAll[2] + "日";
+                let dateEnd = etimeAll[0] + "年" + etimeAll[1] + "月" + etimeAll[2] + "日";
+                let name = this.formWeekly.name || '';
+                let department = this.formWeekly.department || '';
+                let job = this.formWeekly.job || '';
+                let title = `${dateStart} -- ${dateEnd}员工周报`;
+                let subTitle = `姓名：${name}     部门：${department}     岗位：${job}`;
+                
+                // 工作内容
+                let dataArr = [];
+                for(let i=0; i<_this.dList.length; i++){
+                    dataArr = dataArr.concat(_this.formWeekly[_this.dList[i]]);
+                }
+                let dataArrGrouped = _this.groupBy(dataArr, 'task');
+                let dataArrRes = [], detailStr;
+                for(let i=0; i<dataArrGrouped.length; i++){
+                    detailStr = "";
+                    for(let j=0; j<dataArrGrouped[i].length; j++){
+                        detailStr += ((j+1) + '、' + dataArrGrouped[i][j].detail + '\n');
+                    }
+                    dataArrRes.push({
+                        'task': dataArrGrouped[i][0].task,
+                        'detail': detailStr
+                    })
+                }
+                
+                // 组装数据
+                data.push({
+                    'title': title,
+                    'subTitle': subTitle,
+                    'rowLength': dataArrGrouped.length
+                });
+                data.push(dataArrRes);
+                
+                console.log(data);
+                
                 //渲染Excel表格
                 ejsExcel.renderExcel(exlBuf, data).then(function(exlBuf2){
                     fs.writeFile(_this.fileExportPath + excelname, exlBuf2, (err) => {
@@ -433,10 +453,7 @@
             addItem(item){ // 添加内容
                 this.formWeekly[item].push({
                     task: '',
-                    detail: '',
-                    reason: '',
-                    finish: '',
-                    percent: ''
+                    detail: ''
                 });
                 this.$notify({
                     title: '提示',
@@ -461,6 +478,25 @@
                 }).catch(() => {
 
                 });
+            },
+            groupBy(array, keys){
+                const newArray = [];
+                array.map(item=>{
+                    return [item]
+                }).forEach(([{...item}])=>{
+                    const flag = newArray.find(([{...o}])=>o[keys] === item[keys]);
+                    if(!flag) {
+                        newArray.push([{...item}])
+                    } else {
+                        newArray.forEach(([{...y}], index)=>{
+                            if(y[keys] === item[keys]) {
+                                newArray[index].push(item)
+                            }
+                        })
+                    }
+                });
+                
+                return newArray;
             }
         },
         mounted() {
@@ -513,9 +549,6 @@
                 right: 15px;
                 top: 30px;
                 cursor: pointer;
-                &:hover{
-                    color: #000000;
-                }
             }
 
             .el-input-group__append{
