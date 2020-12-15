@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="btn-group btn-group-bottom">
-                    <el-button type="primary" size="small" @click="showFile">切换至【笔记】</el-button>
+                    <el-button type="success" size="small" @click="showFile">切换至【笔记】</el-button>
                 </div>
             </el-aside>
 
@@ -34,15 +34,15 @@
                                 <el-input v-model="formWeekly.job" placeholder="岗位"></el-input>
                             </el-col>
                             <el-col :span="8">
-                                <el-input v-model="fileExportPath" placeholder="文件导出路径"></el-input>
+                                <el-input v-model="fileExportPath" placeholder="文件导出路径，注意最后需要加 '\'"></el-input>
                             </el-col>
                             <el-col :span="16">
                                 <el-date-picker
                                         v-model="formWeekly.date"
                                         type="daterange"
                                         range-separator="至"
-                                        start-placeholder="开始日期"
-                                        end-placeholder="结束日期"
+                                        start-placeholder="周报开始日期"
+                                        end-placeholder="周报结束日期"
                                         format="yyyy 年 MM 月 dd 日"
                                         value-format="yyyy-MM-dd">
                                 </el-date-picker>
@@ -61,13 +61,22 @@
 
                             <div class="weekly-item-sub" v-for="(k, indexSub) in formWeekly[item]" :key="indexSub">
                                 <el-col :span="24">
-                                    <el-input
+                                    <!--<el-input
                                             placeholder="任务名称"
                                             v-model="k.task">
                                         <template slot="append">
                                             <span @click="delItem(item, indexSub)">删除</span>
                                         </template>
-                                    </el-input>
+                                    </el-input>-->
+                                    <el-select v-model="k.task" placeholder="任务名称" filterable allow-create default-first-option>
+                                        <el-option
+                                                v-for="(item, index) in taskList"
+                                                :key="index"
+                                                :label="item"
+                                                :value="item">
+                                        </el-option>
+                                    </el-select>
+                                    <el-button type="warning" plain @click="delItem(item, indexSub)">删除</el-button>
                                 </el-col>
                                 <el-col :span="24">
                                     <el-input
@@ -107,7 +116,7 @@
         name: 'indexBook',
         data() {
             return {
-                fileExportPath: 'D:\\', // 文件导出路径
+                fileExportPath: 'D:\\download\\', // 文件导出路径
                 templatePath: 'static/template/zhoubao.xlsx', // 模板地址
                 targetDir: 'data/weekly', // 数据所在文件夹
                 createCard: false, // 添加周报弹窗
@@ -153,6 +162,7 @@
                 },
                 dList: ['d1','d2','d3','d4','d5','d6','d7'],
                 dateList: ['一','二','三','四','五','六','日'],
+                taskList: ['北京输变电智能安防系统', '全景项目', '河南可视化PC', '河南可视化APP', '河南可视化PC评测', '河南可视化APP评测', '河北可视化PC', '河北可视化APP', '北京可视化PC', '北京可视化APP']
             }
         },
         watch: {
@@ -439,9 +449,9 @@
 
                         _this.$notify({
                             title: '提示',
-                            message: "导出成功",
+                            message: `导出成功，导出路径：${_this.fileExportPath + excelname}`,
                             type: 'success',
-                            duration: 1000
+                            duration: 10000
                         });
 
                         _this.mouseMenuShow = false;

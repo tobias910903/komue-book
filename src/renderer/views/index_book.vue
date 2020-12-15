@@ -3,7 +3,7 @@
         <el-container @click.native.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">
-                    <el-button type="success" size="small" @click="createFile">新增笔记</el-button>
+                    <el-button type="primary" size="small" @click="createFile">新增笔记</el-button>
                     <el-button type="text" size="small" @click="reset">文档</el-button>
                     <!--
                     <el-button type="primary" size="small" icon="el-icon-upload2">导入</el-button>

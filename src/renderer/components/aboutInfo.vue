@@ -1,8 +1,8 @@
 <template>
     <div class="about-info">
-        <el-alert title="使用说明" type="info" :closable="false"></el-alert>
-        <p>快速保存：Ctrl+S</p>
-        <p>查看菜单：富文本区域鼠标右键</p>
+        <el-alert title="使用说明" type="success" :closable="false"></el-alert>
+        <p>1、快速保存：Ctrl+S</p>
+        <p>2、查看菜单：右侧内容区域鼠标右键</p>
     </div>
 </template>
 
