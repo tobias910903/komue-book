@@ -68,7 +68,7 @@
                                             <span @click="delItem(item, indexSub)">删除</span>
                                         </template>
                                     </el-input>-->
-                                    <el-select v-model="k.task" placeholder="任务名称" filterable allow-create default-first-option>
+                                    <el-select v-model="k.task" placeholder="任务名称" clearable filterable allow-create default-first-option>
                                         <el-option
                                                 v-for="(item, index) in taskList"
                                                 :key="index"
@@ -162,7 +162,7 @@
                 },
                 dList: ['d1','d2','d3','d4','d5','d6','d7'],
                 dateList: ['一','二','三','四','五','六','日'],
-                taskList: ['北京输变电智能安防系统', '全景项目', '河南可视化PC', '河南可视化APP', '河南可视化PC评测', '河南可视化APP评测', '河北可视化PC', '河北可视化APP', '北京可视化PC', '北京可视化APP']
+                taskList: ['北京输变电智能安防系统', '全景在线监测平台', '河南可视化PC', '河南可视化APP', '河南可视化PC评测', '河南可视化APP评测', '河北可视化PC', '河北可视化APP', '北京可视化PC', '北京可视化APP']
             }
         },
         watch: {
@@ -415,7 +415,11 @@
                 for(let i=0; i<dataArrGrouped.length; i++){
                     detailStr = "";
                     for(let j=0; j<dataArrGrouped[i].length; j++){
-                        detailStr += ((j+1) + '、' + dataArrGrouped[i][j].detail + '\n');
+                        if(j == dataArrGrouped[i].length - 1){
+                            detailStr += ((j+1) + '、' + dataArrGrouped[i][j].detail);
+                        }else{
+                            detailStr += ((j+1) + '、' + dataArrGrouped[i][j].detail + '\n');
+                        }
                     }
                     dataArrRes.push({
                         'task': dataArrGrouped[i][0].task,
