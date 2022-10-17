@@ -22,14 +22,6 @@ export default new Router({
                 title: "笔记"
             },
             component: require('@/views/index_book').default
-        },
-        {
-            path: '/weekly',
-            name: 'index_weekly',
-            meta: {
-                title: "周报"
-            },
-            component: require('@/views/index_weekly').default
-        },
+        }
     ]
 })

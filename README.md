@@ -3,7 +3,7 @@
 > 一个自己用来做笔记的玩意儿
 
 ``` 
-npm install
+yarn
 npm run dev
 npm run build
 

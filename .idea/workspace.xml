@@ -2,34 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="记事本增删改查基本功能">
+      <change afterPath="$PROJECT_DIR$/.yarnrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.electron-vue/dev-client.js" beforeDir="false" afterPath="$PROJECT_DIR$/.electron-vue/dev-client.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/book/测试一.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试一.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/book/测试二.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试二.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weekly/测试周报.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/views/index_book.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/views/index_book.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/views/index_weekly.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/template/zhoubao.xlsx" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
-    <ignored path="D:\git\komue-book\.idea\shelf/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/renderer/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#263#298#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -99,6 +89,7 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
+  <component name="ProjectId" id="2DQ4xWQ7iGCj66cw335RH8Ai2iq" />
   <component name="ProjectLevelVcsManager">
     <OptionsSetting value="false" id="Update" />
   </component>
@@ -132,6 +123,10 @@
       <pane id="Scope" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -141,24 +136,14 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="ts.external.directory.path" value="D:\devTools\WebStorm 2019.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GIT\komue-book" />
       <recent name="D:\git\komue-book\build\icons" />
       <recent name="D:\git\komue-note" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="npm.build:win32">
     <configuration name="build:win32" type="js.build_tools.npm" nameIsGenerated="true">
@@ -181,11 +166,40 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="pack:renderer" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="pack:renderer" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="postinstall" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="postinstall" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.build:win32" />
+      <item itemvalue="npm.pack:renderer" />
+      <item itemvalue="npm.postinstall" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.postinstall" />
+        <item itemvalue="npm.pack:renderer" />
+      </list>
+    </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration>C:\Users\fanli\AppData\Roaming\Subversion</configuration>
     <supportedVersion>125</supportedVersion>
@@ -209,6 +223,9 @@
       <workItem from="1584539838198" duration="80000" />
       <workItem from="1585931078996" duration="1393000" />
       <workItem from="1586620771532" duration="957000" />
+      <workItem from="1660618221639" duration="2897000" />
+      <workItem from="1661500276143" duration="359000" />
+      <workItem from="1665989838492" duration="4514000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
@@ -271,7 +288,18 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />

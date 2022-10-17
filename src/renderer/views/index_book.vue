@@ -5,10 +5,7 @@
                 <div class="btn-group">
                     <el-button type="primary" size="small" @click="createFile">新增笔记</el-button>
                     <el-button type="text" size="small" @click="reset">文档</el-button>
-                    <!--
-                    <el-button type="primary" size="small" icon="el-icon-upload2">导入</el-button>
-                    <el-button type="primary" size="small" icon="el-icon-download">导出</el-button>
-                    -->
+
                     <div class="search">
                         <el-input placeholder="搜索..." v-model="searchKey" clearable></el-input>
                     </div>
@@ -16,10 +13,6 @@
 
                 <div class="card-box">
                     <el-card shadow="never" v-for="(i, index) in fileList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">{{dataObj[i]}}</el-card>
-                </div>
-
-                <div class="btn-group btn-group-bottom">
-                    <el-button type="primary" size="small" @click="showFile">切换至【周报】</el-button>
                 </div>
             </el-aside>
 
@@ -41,7 +34,6 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import WangEditor from '@/components/wangEditor'
     import AboutInfo from '@/components/aboutInfo'
 
@@ -78,10 +70,6 @@
             AboutInfo
         },
         methods: {
-            showFile(){
-                this.$router.push({name: 'index_weekly'});
-            },
-
             readFile(fileName, index) { // 获取文件内容
                 let fileNameTemp = this.targetDir + "/" + fileName + ".txt";
                 fs.readFile(fileNameTemp, (err, data) => {
@@ -185,7 +173,7 @@
                 this.fileList = [];
                 dirList.forEach((fileName) => {
                     fileObj = fileName.slice(0, -4);
-                    Vue.set(this.dataObj, fileObj, fileObj);
+                    this.$set(this.dataObj, fileObj, fileObj);
                     this.fileList.push(fileObj);
                 });
             },
