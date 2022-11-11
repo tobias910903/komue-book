@@ -22,9 +22,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "compressing": "^1.6.2",
     "element-ui": "^2.14.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "moment": "^2.29.4",
     "polyfill-object.fromentries": "^1.0.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",

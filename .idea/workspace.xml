@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="记事本增删改查基本功能">
-      <change afterPath="$PROJECT_DIR$/.yarnrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.electron-vue/dev-client.js" beforeDir="false" afterPath="$PROJECT_DIR$/.electron-vue/dev-client.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/book/测试一.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试一.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/book/测试二.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试二.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/weekly/测试周报.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/views/index_book.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/views/index_book.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/views/index_weekly.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/template/zhoubao.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +128,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Stylus" />
     <property name="ts.external.directory.path" value="D:\devTools\WebStorm 2019.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -225,7 +219,9 @@
       <workItem from="1586620771532" duration="957000" />
       <workItem from="1660618221639" duration="2897000" />
       <workItem from="1661500276143" duration="359000" />
-      <workItem from="1665989838492" duration="4514000" />
+      <workItem from="1665989838492" duration="4821000" />
+      <workItem from="1666692618377" duration="643000" />
+      <workItem from="1668134184362" duration="11474000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
@@ -300,6 +296,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />

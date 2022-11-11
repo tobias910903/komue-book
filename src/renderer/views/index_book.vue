@@ -1,43 +1,59 @@
 <template>
     <div class="box-content">
         <el-container @click.native.left="mouseMenuShow = false">
-            <el-aside>
-                <div class="btn-group">
-                    <el-button type="primary" size="small" @click="createFile">新增笔记</el-button>
-                    <el-button type="text" size="small" @click="reset">文档</el-button>
+            <el-drawer
+                :visible.sync="drawer"
+                :append-to-body="true"
+                size="68%"
+                :show-close="false"
+                direction="rtl">
+                <template #title>
+                    <div class="btn-group">
+                        <el-button type="primary" size="small" @click="createFile">新增笔记</el-button>
+                        <el-button type="text" size="small" @click="reset(); closeDrawer();">文档</el-button>
 
-                    <div class="search">
-                        <el-input placeholder="搜索..." v-model="searchKey" clearable></el-input>
+                        <div class="search">
+                            <el-input placeholder="搜索..." v-model="searchKey" clearable></el-input>
+                        </div>
                     </div>
-                </div>
+                </template>
 
                 <div class="card-box">
-                    <el-card shadow="never" v-for="(i, index) in fileList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">{{dataObj[i]}}</el-card>
+                    <el-card shadow="hover" v-for="(i, index) in fileList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1">{{dataObj[i]}}</el-card>
                 </div>
-            </el-aside>
+            </el-drawer>
 
             <el-container>
                 <el-main>
-                    <wang-editor v-model="fileContent" :isClear="isEditorClear" @change="editorChange" v-if="!!fileName && !createCard" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
+                    <wang-editor v-model="fileContent" :isClear="isEditorClear" @change="editorChange" v-if="showEdit" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
                     <about-info v-else></about-info>
                 </el-main>
             </el-container>
         </el-container>
 
+        <!-- 右键菜单 -->
         <div class="mouse-menu" :style="mouseMenuStyle" v-show="mouseMenuShow">
             <el-card>
                 <el-button type="primary" size="small" @click="saveContent">保存</el-button><br />
                 <el-button type="danger" size="small" @click="removeFile(fileName)">删除</el-button>
             </el-card>
         </div>
+
+        <!-- 菜单显示 -->
+        <el-button class="toggle-menu" type="primary" icon="el-icon-menu" circle @mouseenter.native="drawer = true"></el-button>
+
+        <!-- 水印文案 -->
+        <div class="water-mark" v-if="showEdit">当前笔记：{{fileName}}</div>
     </div>
 </template>
 
 <script>
+    import moment from "moment";
     import WangEditor from '@/components/wangEditor'
     import AboutInfo from '@/components/aboutInfo'
 
     const fs = require('fs');
+    const compressing = require('compressing');
 
     export default {
         name: 'indexBook',
@@ -57,12 +73,18 @@
                 mouseMenuStyle: { // 右击菜单定位
                     top: 0,
                     left: 0
-                }
+                },
+                drawer: false // 菜单抽屉
             }
         },
         watch: {
             searchKey(n, o) {
                 this.reset();
+            }
+        },
+        computed:{
+            showEdit(){
+                return !!this.fileName && !this.createCard
             }
         },
         components: {
@@ -94,6 +116,8 @@
                         duration: 1000
                     });
                 });
+
+                this.closeDrawer()
             },
             writeFile() { // 生成文件
                 if (this.fileList.indexOf(this.fileName) !== -1) {
@@ -215,6 +239,7 @@
                     this.fileName = value;
                     this.createCard = true;
                     this.writeFile();
+                    this.closeDrawer()
                 }).catch(() => {
                     this.createCard = false;
                     this.reset();
@@ -235,6 +260,24 @@
                     top: e.pageY + "px",
                     left: e.pageX + "px"
                 }
+            },
+            closeDrawer(){
+                this.drawer = false
+            },
+            createZip(){
+                compressing.zip.compressDir(this.targetDir, 'data_bak/book'+ moment(new Date().getTime()).format('YYYYMMDD') +'.zip').then(()=>{
+                    console.log("compressDir success")
+                    localStorage.setItem('lastSaveDate', new Date().getTime())
+                }).catch((err)=>{
+                    console.log("compressDir error", err)
+                });
+            },
+            dataBak(){
+                let lastSaveDate = localStorage.getItem("lastSaveDate") || 0;
+                // 大于 5小时 则备份
+                if(new Date().getTime() - lastSaveDate > 5 * 60 * 60 * 1000){
+                    this.createZip();
+                }
             }
         },
         mounted() {
@@ -245,10 +288,9 @@
 
             // init
             this.getDataList();
+
+            // 数据自动备份
+            this.dataBak()
         }
     }
 </script>
-
-<style lang="less">
-
-</style>
