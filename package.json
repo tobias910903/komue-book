@@ -21,7 +21,7 @@
     "postinstall": ""
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "compressing": "^1.6.2",
     "element-ui": "^2.14.1",
     "less": "^3.11.1",
