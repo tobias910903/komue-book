@@ -125,21 +125,21 @@
         margin: 0 auto;
         position: relative;
         z-index: 0;
-        
+
         .toolbar {
             /*border-bottom: 1px solid #eeeeee;*/
         }
-        
+
         .text {
             border-top: 1px solid #eeeeee;
-            height: 95%;
+            height: calc(100% - 30px);
         }
-        
+
         /deep/ .w-e-text {
             padding: 15px;
             background-color: #fefefe;
             color: #666666;
-            
+
             p {
                 margin: 0;
             }
