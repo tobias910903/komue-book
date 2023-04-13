@@ -3,8 +3,8 @@
         <el-container @click.native.left="mouseMenuShow = false">
             <el-aside>
                 <div class="btn-group">
-                    <el-button type="primary" size="small" @click="createFile">新增笔记</el-button>
-                    <el-button type="text" size="small" @click="reset">文档</el-button>
+                    <el-button type="primary" size="small" @click="createFile">新增</el-button>
+                    <el-button type="text" size="small" @click="init">刷新</el-button>
 
                     <div class="search">
                         <el-input placeholder="搜索..." v-model="searchKey" clearable></el-input>
@@ -12,13 +12,18 @@
                 </div>
 
                 <div class="card-box">
-                    <el-card shadow="hover" v-for="(i, index) in fileList" :key="index" @click.native="readFile(i, index)" :class="index == activeIndex && 'active'" v-show="i.indexOf(searchKey) != -1" :title="dataObj[i]">{{dataObj[i]}}</el-card>
+                    <el-card shadow="hover" v-for="(i, index) in fileList" :key="index"
+                             @click.native="readFile(i, index)" :class="index == activeIndex && 'active'"
+                             v-show="i.indexOf(searchKey) != -1" :title="dataObj[i]">{{ dataObj[i] }}
+                    </el-card>
                 </div>
             </el-aside>
 
             <el-container>
                 <el-main>
-                    <wang-editor v-model="fileContent" :isClear="isEditorClear" @change="editorChange" v-if="!!fileName && !createCard" @keyup.native.ctrl.83="saveContent" @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
+                    <wang-editor v-model="fileContent" :isClear="isEditorClear" @change="editorChange"
+                                 v-if="!!fileName && !createCard" @keyup.native.ctrl.83="saveContent"
+                                 @contextmenu.native.prevent="mouseMenu($event)"></wang-editor>
                     <about-info v-else></about-info>
                 </el-main>
             </el-container>
@@ -26,7 +31,8 @@
 
         <div class="mouse-menu" :style="mouseMenuStyle" v-show="mouseMenuShow">
             <el-card>
-                <el-button type="primary" size="small" @click="saveContent">保存</el-button><br />
+                <el-button type="primary" size="small" @click="saveContent">保存</el-button>
+                <br/>
                 <el-button type="danger" size="small" @click="removeFile(fileName)">删除</el-button>
             </el-card>
         </div>
@@ -34,12 +40,12 @@
 </template>
 
 <script>
-    import moment from "moment";
-    import WangEditor from '@/components/wangEditor'
-    import AboutInfo from '@/components/aboutInfo'
+import moment from "moment";
+import WangEditor from '@/components/WangEditor'
+import AboutInfo from '@/components/aboutInfo'
 
-    const fs = require('fs');
-    const compressing = require('compressing');
+const fs = require('fs');
+const compressing = require('compressing');
 
 export default {
     name: 'indexBook',
@@ -80,7 +86,7 @@ export default {
                         title: '提示',
                         message: "查询列表失败",
                         type: 'fail',
-                        duration: 1000
+                        duration: 3000
                     });
                     return;
                 }
@@ -93,7 +99,7 @@ export default {
                     title: '提示',
                     message: "已切换至 " + fileName,
                     type: 'success',
-                    duration: 1000
+                    duration: 1500
                 });
             });
         },
@@ -101,9 +107,9 @@ export default {
             if (this.fileList.indexOf(this.fileName) !== -1) {
                 this.$notify({
                     title: '提示',
-                    message: "笔记已经存在",
+                    message: "文件名已存在",
                     type: 'warning',
-                    duration: 1000
+                    duration: 3000
                 });
 
                 this.fileName = "";
@@ -128,7 +134,7 @@ export default {
                     title: '提示',
                     message: this.fileName + " 创建成功",
                     type: 'success',
-                    duration: 1000
+                    duration: 1500
                 });
 
                 this.getDataList();
@@ -159,7 +165,7 @@ export default {
                         title: '提示',
                         message: fileName + ' 删除成功',
                         type: 'success',
-                        duration: 1000
+                        duration: 1500
                     });
 
                     this.getDataList();
@@ -238,33 +244,36 @@ export default {
                 left: e.pageX + "px"
             }
         },
-        createZip(){
-            compressing.zip.compressDir(this.targetDir, 'data_bak/book'+ moment(new Date().getTime()).format('YYYYMMDD') +'.zip').then(()=>{
+        createZip() {
+            compressing.zip.compressDir(this.targetDir, 'data_bak/book' + moment(new Date().getTime()).format('YYYYMMDD') + '.zip').then(() => {
                 console.log("compressDir success")
                 localStorage.setItem('lastSaveDate', new Date().getTime())
-            }).catch((err)=>{
+            }).catch((err) => {
                 console.log("compressDir error", err)
             });
         },
-        dataBak(){
+        dataBak() {
             let lastSaveDate = localStorage.getItem("lastSaveDate") || 0;
             // 大于 5小时 则备份
-            if(new Date().getTime() - lastSaveDate > 5 * 60 * 60 * 1000){
+            if (new Date().getTime() - lastSaveDate > 5 * 60 * 60 * 1000) {
                 this.createZip();
             }
+        },
+        init() {
+            // 创建数据文件夹
+            if (!fs.existsSync(this.targetDir)) {
+                fs.mkdirSync(this.targetDir);
+            }
+
+            // 获取文件列表
+            this.getDataList();
+
+            // 数据自动备份
+            this.dataBak()
         }
     },
     mounted() {
-        // 创建数据文件夹
-        if (!fs.existsSync(this.targetDir)) {
-            fs.mkdirSync(this.targetDir);
-        }
-
-        // init
-        this.getDataList();
-
-        // 数据自动备份
-        this.dataBak()
+        this.init()
     }
 }
 </script>

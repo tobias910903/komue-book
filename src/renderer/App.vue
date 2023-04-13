@@ -102,6 +102,10 @@ html, body, .el-container, .el-aside, #app {
     .el-main {
         padding: 2px 0 0 0;
         height: 100%;
+
+        /deep/ img[data-w-e]{
+            width: 22px;
+        }
     }
 }
 

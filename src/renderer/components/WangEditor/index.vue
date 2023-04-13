@@ -7,6 +7,8 @@
 
 <script>
     import E from 'wangeditor'
+    import {emoticon} from './emoticon'
+
     export default {
         name: 'wangeditor',
         data() {
@@ -69,7 +71,7 @@
                     'bold', // 粗体
                     'fontSize', // 字号
                     // 'fontName', // 字体
-                    'italic', // 斜体
+                    // 'italic', // 斜体
                     'underline', // 下划线
                     'strikeThrough', // 删除线
                     'foreColor', // 文字颜色
@@ -87,6 +89,8 @@
                     'redo', // 重复
                     // 'fullscreen' // 全屏
                 ]
+
+                this.editor.customConfig.emotions = emoticon
 
                 this.editor.customConfig.uploadImgHooks = {
                     fail: (xhr, editor, result) => {
@@ -142,6 +146,14 @@
 
             p {
                 margin: 0;
+            }
+        }
+
+        /deep/ .w-e-emoticon-container{
+            .w-e-item{
+                img{
+                    width: 22px;
+                }
             }
         }
     }

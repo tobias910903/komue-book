@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="记事本增删改查基本功能">
+    <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="菜单优化">
+      <change afterPath="$PROJECT_DIR$/src/renderer/components/WangEditor/emoticon.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/book/测试一.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试一.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/wangEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/wangEditor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/wangEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/WangEditor/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/views/index_book.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/views/index_book.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -41,6 +51,9 @@
   <component name="Git.Settings">
     <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="d7141641-dab4-4b6b-bb10-46f81611335a" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/renderer/App.vue" root0="SKIP_INSPECTION" />
@@ -119,13 +132,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Stylus" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="ts.external.directory.path" value="D:\devTools\WebStorm 2019.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -135,8 +151,14 @@
       <recent name="D:\git\komue-book\build\icons" />
       <recent name="D:\git\komue-note" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GIT\komue-book\src\renderer\components\WangEditor" />
+    </key>
   </component>
-  <component name="RunManager" selected="npm.build:win32">
+  <component name="RunManager" selected="Node.js.electron_main.js">
+    <configuration name="electron_main.js" type="NodeJSConfigurationType" path-to-node="$PROJECT_DIR$/node_modules/.bin/electron.cmd" node-parameters="--inspect-brk=5858 ." path-to-js-file="src/main/index.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
     <configuration name="build:win32" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -152,6 +174,16 @@
       <command value="run" />
       <scripts>
         <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="pack" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="pack" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -178,15 +210,18 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Node.js.electron_main.js" />
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.build:win32" />
       <item itemvalue="npm.pack:renderer" />
       <item itemvalue="npm.postinstall" />
+      <item itemvalue="npm.pack" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.postinstall" />
+        <item itemvalue="npm.pack" />
         <item itemvalue="npm.pack:renderer" />
+        <item itemvalue="npm.postinstall" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +254,15 @@
       <workItem from="1665989838492" duration="4821000" />
       <workItem from="1666692618377" duration="643000" />
       <workItem from="1668134184362" duration="11476000" />
-      <workItem from="1670058608756" duration="1893000" />
+      <workItem from="1670058608756" duration="2218000" />
+      <workItem from="1675147538905" duration="635000" />
+      <workItem from="1675220184734" duration="7869000" />
+      <workItem from="1675233908084" duration="1750000" />
+      <workItem from="1675322551969" duration="682000" />
+      <workItem from="1678760052056" duration="162000" />
+      <workItem from="1678760314022" duration="824000" />
+      <workItem from="1681280234355" duration="8043000" />
+      <workItem from="1681350402627" duration="1870000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
@@ -249,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584493580665</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="菜单优化">
+      <created>1670060579552</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670060579552</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -333,7 +383,12 @@
     <MESSAGE value="创建应用" />
     <MESSAGE value="更改项目名" />
     <MESSAGE value="更换ICON、新增鼠标右键菜单" />
-    <option name="LAST_COMMIT_MESSAGE" value="更换ICON、新增鼠标右键菜单" />
+    <MESSAGE value="菜单优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="菜单优化" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/electron/electron.d.ts" />
