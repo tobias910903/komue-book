@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="菜单优化">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +19,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>require('electron')</find>
-      <find>komue-note</find>
+      <find>komue-book</find>
       <find>For help see</find>
       <find>Debugger listening</find>
       <find>global</find>
@@ -141,93 +140,11 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GIT\komue-book" />
       <recent name="D:\git\komue-book\build\icons" />
-      <recent name="D:\git\komue-note" />
+      <recent name="D:\git\komue-book" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\GIT\komue-book\src\renderer\components\WangEditor" />
     </key>
-  </component>
-  <component name="RunManager" selected="Node.js.electron_main.js">
-    <configuration name="electron_main.js" type="NodeJSConfigurationType" path-to-node="$PROJECT_DIR$/node_modules/.bin/electron.cmd" node-parameters="--inspect-brk=5858 ." path-to-js-file="src/main/index.js" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-    <configuration name="build:win32" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build:win32" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="dev" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="electron:serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="electron:serve" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="pack" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="pack" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="pack:renderer" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="pack:renderer" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="postinstall" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="postinstall" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Node.js.electron_main.js" />
-      <item itemvalue="npm.dev" />
-      <item itemvalue="npm.build:win32" />
-      <item itemvalue="npm.pack:renderer" />
-      <item itemvalue="npm.postinstall" />
-      <item itemvalue="npm.pack" />
-      <item itemvalue="npm.electron:serve" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.electron:serve" />
-        <item itemvalue="npm.pack" />
-        <item itemvalue="npm.pack:renderer" />
-        <item itemvalue="npm.postinstall" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -267,7 +184,7 @@
       <workItem from="1678760314022" duration="824000" />
       <workItem from="1681280234355" duration="8043000" />
       <workItem from="1681350402627" duration="1870000" />
-      <workItem from="1686557306147" duration="161000" />
+      <workItem from="1686557306147" duration="1380000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
