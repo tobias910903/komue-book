@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="275047fb-5a64-4dc9-a0b8-70d4d0a068e3" name="Default Changelist" comment="菜单优化">
-      <change afterPath="$PROJECT_DIR$/src/renderer/components/WangEditor/emoticon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/book/测试一.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/book/测试一.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/aboutInfo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/wangEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/WangEditor/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/views/index_book.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/views/index_book.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,9 +49,6 @@
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="d7141641-dab4-4b6b-bb10-46f81611335a" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/renderer/App.vue" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -179,6 +171,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="electron:serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="electron:serve" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="pack" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -216,9 +218,11 @@
       <item itemvalue="npm.pack:renderer" />
       <item itemvalue="npm.postinstall" />
       <item itemvalue="npm.pack" />
+      <item itemvalue="npm.electron:serve" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.electron:serve" />
         <item itemvalue="npm.pack" />
         <item itemvalue="npm.pack:renderer" />
         <item itemvalue="npm.postinstall" />
@@ -263,6 +267,7 @@
       <workItem from="1678760314022" duration="824000" />
       <workItem from="1681280234355" duration="8043000" />
       <workItem from="1681350402627" duration="1870000" />
+      <workItem from="1686557306147" duration="161000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1583514662847</created>
