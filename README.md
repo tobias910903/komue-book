@@ -4,10 +4,8 @@
 
 ``` 
 yarn
-npm run dev
-npm run build
+yarn electron:serve
+yarn electron:build
 
-打包之后将 /data /data_bak 文件夹复制到根目录下
-
-注意：使用淘宝镜像装依赖可能会导致打包不成功
+注意：使用淘宝镜像装依赖可能会导致打包不成功?
 ```
