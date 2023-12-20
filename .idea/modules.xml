@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/komue-book.iml" filepath="$PROJECT_DIR$/.idea/komue-book.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/komue-note.iml" filepath="$PROJECT_DIR$/.idea/komue-note.iml" />
     </modules>
   </component>
